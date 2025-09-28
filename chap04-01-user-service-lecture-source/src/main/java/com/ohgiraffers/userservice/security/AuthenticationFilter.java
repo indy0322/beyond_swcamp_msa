@@ -16,7 +16,10 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
@@ -118,5 +121,11 @@ public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
                 .compact();
 
         response.addHeader("token", token);
+
+        /* 설명. 로그인에 성공한 사람의 정보(Authentication 객체)를 활용하고 싶다면(ex. Controller) */
+        /* 설명. 1. 코드 상에서 */
+//        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        /* 설명. 2. 매개변수에서 */
+//        @AuthenticationPrincipal UserDetails user;
     }
 }

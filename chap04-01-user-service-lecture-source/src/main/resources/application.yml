@@ -1,5 +1,6 @@
 server:
-  port: 8111
+#  port: 8111
+  port: 0
 
 spring:
   application:
@@ -24,4 +25,36 @@ hello:
 # 설명. 12시간의 만료 시간 + HMackSha 512 비밀키
 token:
   expiration_time: 43200000
-  secret: 3OUvg1Vf3otoVs+qYgeBSQaPCuiAezzGHS1Cf3LxRHxGhSXla1YErUMAJMdLC1g+eeklpYcHGdBmtY7Y7tC++g==
+  secret: CxCdBy6P0vET6d/oKN9YSXzUBwfYGR+petj55jmBGrk3XaTqpaCMdgYbv7Q7ccrwjc2441jyOY0OKCFqbZPOHQ==
+
+
+
+eureka:
+  instance:
+    instance-id: ${spring.application.name}:${spring.application.instance_id:${random.value}}
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://localhost:8761/eureka
+
+# 설명. actuator를 추가하면서 설정한 내용(bean,info는 GET, refresh는 POST)
+management:
+  endpoints:
+    web:
+      exposure:
+        include: refresh, beans, info
+  info:
+    env:
+      enabled: true
+    java:
+      enabled: true
+    os:
+      enabled: true
+info:
+  app:
+    name: User Microservice
+    description: This is a user microservice
+    version: 1.0.0
+  author: Seung Min
+  company: Ohgiraffers

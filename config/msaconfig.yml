@@ -1,0 +1,6 @@
+token:
+  expiration_time: 43200000
+  secret: CxCdBy6P0vET6d/oKN9YSXzUBwfYGR+petj55jmBGrk3XaTqpaCMdgYbv7Q7ccrwjc2441jyOY0OKCFqbZPOHQ==
+
+test:
+  message: abc

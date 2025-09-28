@@ -14,28 +14,59 @@ spring:
   cloud:
     gateway:
       routes:
-        - id: 1st-service-get
-#          uri: http://localhost:12345/
-
-          # ??? ? ???? ???(?, application name? ??(??? ??? ????? ??? ?? ??? ??))
-          uri: lb://1ST-SERVICE
-
-          # ????? ??? ??? ?? ???? ???(??? ???)
-          predicates:
-            - Path=/first-service/**
-
-          # ?? ??? ? ???? ???? /first-service ?? ???? ???? ?? ????? ???? ? + ?? ??
-          # ???? built in ?? + custom ??(feat.spring security) ?? ??
-          filters:
-            - RewritePath=/first-service/(?<segment>.*), /$\{segment}
-            - AddRequestHeader=first-request, first-request-header
-            - AddResponseHeader=first-response, first-response-header
-
-        - id: 2nd-service-get
-#          uri: http://localhost:12345/
-          uri: lb://2ND-SERVICE
-          predicates:
-            - Path=/second-service/**
-          filters:
-            - RewritePath=/second-service/(?<segment>.*), /$\{segment}
+#        - id: 1st-service-get
+##          uri: http://localhost:12345/
+#
+#          # ??? ? ???? ???(?, application name? ??(??? ??? ????? ??? ?? ??? ??))
+#          uri: lb://1ST-SERVICE
+#
+#          # ????? ??? ??? ?? ???? ???(??? ???)
+#          predicates:
+#            - Path=/first-service/**
+#
+#          # ?? ??? ? ???? ???? /first-service ?? ???? ???? ?? ????? ???? ? + ?? ??
+#          # ???? built in ?? + custom ??(feat.spring security) ?? ??
+#          filters:
+#            - RewritePath=/first-service/(?<segment>.*), /$\{segment}
+#            - AddRequestHeader=first-request, first-request-header
+#            - AddResponseHeader=first-response, first-response-header
+#
+#        - id: 2nd-service-get
+##          uri: http://localhost:12345/
+#          uri: lb://2ND-SERVICE
+#          predicates:
+#            - Path=/second-service/**
+#          filters:
+#            - RewritePath=/second-service/(?<segment>.*), /$\{segment}
 # gateway? routes ??? ?? ?? (? ??? http method ?? ??)? ?? ??????.
+
+        - id: user-service-post-user
+          uri: lb://SWCAMP-USER-SERVICE
+          predicates:
+            - Path=/user-service/**
+            - Method=POST
+          filters:
+            - RewritePath=/user-service/(?<segment>.*), /$\{segment}
+
+        - id: user-service-get-user
+          uri: lb://SWCAMP-USER-SERVICE
+          predicates:
+            - Path=/user-service/**
+            - Method=GET
+          filters:
+            - RewritePath=/user-service/(?<segment>.*), /$\{segment}
+            - AuthorizationHeaderFilter
+
+
+        - id: order-service-get
+          uri: lb://SWCAMP-ORDER-SERVICE
+          predicates:
+            - Path=/order-service/**
+            - Method=GET
+          filters:
+            - RewritePath=/order-service/(?<segment>.*), /$\{segment}
+            - AuthorizationHeaderFilter
+
+token:
+  expiration_time: 43200000
+  secret: CxCdBy6P0vET6d/oKN9YSXzUBwfYGR+petj55jmBGrk3XaTqpaCMdgYbv7Q7ccrwjc2441jyOY0OKCFqbZPOHQ==

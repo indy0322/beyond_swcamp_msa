@@ -1,17 +1,15 @@
-package com.ohgiraffers.userservice;
+package com.ohgiraffers.orderservice;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
-import org.springframework.cloud.openfeign.EnableFeignClients;
 
 @SpringBootApplication
 @EnableDiscoveryClient
-@EnableFeignClients
-public class Chap0101UserServiceLectureSourceApplication {
+public class Chap0402OrderServiceLectureSourceApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(Chap0101UserServiceLectureSourceApplication.class, args);
+        SpringApplication.run(Chap0402OrderServiceLectureSourceApplication.class, args);
     }
 
 }
